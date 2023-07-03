@@ -1,0 +1,24 @@
+﻿@using HospitalManagementApp.Models
+@model List<Patient>
+
+@{ Html.RenderPartial("HospitalTemplate", Model);}
+
+@{ 
+    ViewBag.title = "Doctor Details";
+    WebGrid grid = new WebGrid(Model);
+}
+
+<h3>Doctor Details...</h3>
+@grid.GetHtml(columns: new[]
+{
+    grid.Column("Pid"),
+    grid.Column("Fname", header:"First Name"),
+    grid.Column("Lname", header:"Last Name"),
+    grid.Column("Gender"),
+    grid.Column("Age"),
+    grid.Column("bg", header:"Blood Group"),
+    grid.Column("Desease"),
+    grid.Column("Doctor_id")
+}, caption:$"DoctorId {Model[0].Doctor_id} belonging Patients.")
+
+@Html.ActionLink("AllDoctors", "/GetDoctors")

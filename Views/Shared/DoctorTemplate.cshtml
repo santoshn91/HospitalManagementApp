@@ -1,0 +1,57 @@
+﻿@using HospitalManagementApp.Models
+@model Doctor
+
+@{ Html.RenderPartial("HospitalTemplate", Model);}
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>@Html.HiddenFor(x => x.Did)</td>
+        </tr>
+        <tr>
+            <td>Fname:</td>
+            <td>
+                @Html.TextBoxFor(x => x.Fname)
+                @Html.ValidationMessageFor(x => x.Fname)
+            </td>
+        </tr>
+        <tr>
+            <td>Lname:</td>
+            <td>
+                @Html.TextBoxFor(x => x.Lname)
+                @Html.ValidationMessageFor(x => x.Lname)
+            </td>
+        </tr>
+        <tr>
+            <td>Gender:</td>
+            <td>
+                @foreach (var item in Model.Genders)
+                {
+                    @Html.RadioButtonFor(x => x.Gender, item.Name)
+                    @item.Name
+                }
+                @Html.ValidationMessageFor(x => x.Gender)
+            </td>
+        </tr>
+        <tr>
+            <td>Age:</td>
+            <td>
+                @Html.TextBoxFor(x => x.Age)
+                @Html.ValidationMessageFor(x => x.Age)
+            </td>
+        </tr>
+        <tr>
+            <td>Dept:</td>
+            <td>
+                @Html.DropDownListFor(x => x.Dept, Model.Depts)
+                @Html.ValidationMessageFor(x => x.Dept)
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" /></td>
+            <td>@Html.ActionLink("All Doctor", "/GetDoctors")</td>
+        </tr>
+    </table>
+}
+

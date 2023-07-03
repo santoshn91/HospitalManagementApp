@@ -1,0 +1,24 @@
+﻿@using HospitalManagementApp.Models
+@model List<Doctor>
+
+@{ Html.RenderPartial("HospitalTemplate", Model);}
+
+@{
+    ViewBag.title = "Doctors...";
+    WebGrid grid = new WebGrid(Model);
+}
+<h3>Doctors Details...</h3>
+@grid.GetHtml(columns: new[]
+{
+    grid.Column("Did"),
+    grid.Column("Fname", header:"First Name", format:@<text>@Html.ActionLink($"{item.Fname}", "/doctordetails/", new { id = item.Did })</text>),
+        grid.Column("Lname", header:"Last Name"),
+        grid.Column("Gender"),
+        grid.Column("Age"),
+        grid.Column("Dept", header:"Department"),
+        grid.Column(header:"Action", format:@<text>@Html.ActionLink("Update","/updatedoctor/", new{ id = item.Did}, new { onclick = "return confirm('Are you Sure!...')"})</text>),
+        grid.Column(header:"Action", format:@<text>@Html.ActionLink("Delete", "/deletedoctor/", new{ id = item.Did}, new { onclick = "return confirm('Are you Sure!...')"})</text>)
+}, caption: "Doctors.")
+
+@Html.ActionLink("Create Doctor", "/createdoctor")
+

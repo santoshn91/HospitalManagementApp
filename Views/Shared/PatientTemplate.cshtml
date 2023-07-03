@@ -1,0 +1,72 @@
+﻿@using HospitalManagementApp.Models
+@model Patient
+
+@{ Html.RenderPartial("HospitalTemplate", Model);}
+
+        @using (Html.BeginForm())
+        {
+            <table>
+                <tr>
+                    <td>
+                        @Html.HiddenFor(x => x.Pid)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fname:</td>
+                    <td>
+                        @Html.TextBoxFor(x => x.Fname)
+                        @Html.ValidationMessageFor(x => x.Fname)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Lname:</td>
+                    <td>
+                        @Html.TextBoxFor(x => x.Lname)
+                        @Html.ValidationMessageFor(x => x.Lname)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td>
+                        @foreach (var item in Model.Genders)
+                        {
+                            @Html.RadioButtonFor(x => x.Gender, item.Name)
+                            @item.Name
+                        }
+                        @Html.ValidationMessageFor(x => x.Gender)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Age:</td>
+                    <td>
+                        @Html.TextBoxFor(x => x.Age)
+                        @Html.ValidationMessageFor(x => x.Age)
+                    </td>
+                </tr>
+                <tr>
+                    <td>BG:</td>
+                    <td>
+                        @Html.DropDownListFor(x => x.Bg, Model.Bgs)
+                    @Html.ValidationMessageFor(x => x.Bg)
+                </td>
+            </tr>
+            <tr>
+                <td>Desease:</td>
+                <td>
+                    @Html.TextBoxFor(x => x.Desease)
+                    @Html.ValidationMessageFor(x => x.Desease)
+                </td>
+            </tr>
+            <tr>
+                <td>Doctor ID:</td>
+                <td>
+                    @Html.DropDownListFor(x => x.Doctor_id, Model.Doctors)
+                    @Html.ValidationMessageFor(x => x.Doctor_id)
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" /></td>
+                <td>@Html.ActionLink("All Patients.", "/GetAllPatients")</td>
+            </tr>
+        </table>
+    }

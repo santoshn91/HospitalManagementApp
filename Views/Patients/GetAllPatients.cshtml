@@ -1,0 +1,65 @@
+﻿@using HospitalManagementApp.Models
+@model List<Patient>
+
+@{ Html.RenderPartial("HospitalTemplate", Model);}
+
+@{
+    ViewBag.title = "Patient";
+    WebGrid grid = new WebGrid(Model);
+}
+<h3>Patients Details...</h3>
+@grid.GetHtml(columns: new[]
+{
+    grid.Column("Pid"),
+    grid.Column("Fname", header:"First Name"),
+    grid.Column("Lname", header:"Last Name"),
+    grid.Column("Gender"),
+    grid.Column("Age"),
+    grid.Column("Bg", header:"Blood Group"),
+    grid.Column("Desease"),
+    grid.Column("Doctor_id"),
+    grid.Column(header:"Action", format:@<text>@Html.ActionLink("Update","/updatepatient/", new{ id = item.Pid}, new { onclick = "return confirm('Are you Sure!...')"})</text>),
+        grid.Column(header:"Action", format:@<text>@Html.ActionLink("Delete","/deletepatient/", new{ id = item.Pid}, new { onclick = "return confirm('Are you Sure!...')"})</text>)
+}, caption: "Patients")
+@Html.ActionLink("Add Patient", "/createpatient")
+@*<!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>GetAllPatients</title>
+    </head>
+    <body>
+        <div>
+            <table>
+                <tr>
+                    <td>Pid</td>
+                    <td>Fname</td>
+                    <td>Lname</td>
+                    <td>Age</td>
+                    <td>Bg</td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Pid</td>
+                        <td>@item.Fname</td>
+                        <td>@item.Lname</td>
+                        <td>@item.Age</td>
+                        <td>@item.Bg</td>
+                        <td></td>
+                        <td><a href="/Patients/UpdatePatient/@item.Pid">Update</a></td>
+                    </tr>
+                }
+            </table>
+            <table>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><a href="/Patients/CreatePatient">Add Patient</a></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+    </html>*@
